@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Vytor Space Dashboard</title>
+    <title>Vytor Space Intelligence v6</title>
 </head>
-
 <body>
 
-    <h1>🛰️ Vytor Space Dashboard</h1>
+    <h1>Vytor Space Dashboard</h1>
 
     <h2>{{ title }}</h2>
 
@@ -15,6 +13,16 @@
 
     <p>{{ explanation }}</p>
 
-</body>
+    <hr>
 
+    <h3>ISS Live Position</h3>
+    <p>Latitude: {{ lat }}</p>
+    <p>Longitude: {{ lon }}</p>
+
+    <hr>
+
+    <h3>Asteroids Today</h3>
+    <p>{{ asteroids }}</p>
+
+</body>
 </html>
