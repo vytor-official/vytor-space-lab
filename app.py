@@ -3,8 +3,9 @@ import requests
 
 app = Flask(__name__)
 
-NASA_API = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+NASA_API_KEY = "BURAYA_API_KEY_YAZMA_GELISTIRECEGIZ"
 
+NASA_API = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}"
 
 @app.route("/")
 def home():
@@ -13,23 +14,17 @@ def home():
         data = response.json()
 
         if "title" not in data:
-            return f"""
-            <h1>⚠️ NASA API Error</h1>
-            <pre>{data}</pre>
-            """
+            return f"<pre>API Error: {data}</pre>"
 
         return render_template(
             "index.html",
-            title=data.get("title", "No Title"),
-            image=data.get("url", ""),
-            explanation=data.get("explanation", "No explanation available")
+            title=data.get("title"),
+            image=data.get("url"),
+            explanation=data.get("explanation")
         )
 
     except Exception as e:
-        return f"""
-        <h1>⚠️ Server Error</h1>
-        <pre>{str(e)}</pre>
-        """
+        return f"<pre>Error: {e}</pre>"
 
 
 if __name__ == "__main__":
