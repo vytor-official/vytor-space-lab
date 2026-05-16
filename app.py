@@ -3,29 +3,33 @@ import requests
 
 app = Flask(__name__)
 
-NASA_API_KEY = "BURAYA_API_KEY_YAZMA_GELISTIRECEGIZ"
+NASA_KEY = "YOUR_NASA_API_KEY"
 
-NASA_API = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}"
+APOD_URL = f"https://api.nasa.gov/planetary/apod?api_key={NASA_KEY}"
+ISS_URL = "http://api.open-notify.org/iss-now.json"
+ASTEROID_URL = f"https://api.nasa.gov/neo/rest/v1/feed?api_key={NASA_KEY}"
 
 @app.route("/")
 def home():
-    try:
-        response = requests.get(NASA_API, timeout=10)
-        data = response.json()
+    apod = requests.get(APOD_URL).json()
+    iss = requests.get(ISS_URL).json()
+    asteroid = requests.get(ASTEROID_URL).json()
 
-        if "title" not in data:
-            return f"<pre>API Error: {data}</pre>"
+    if "title" not in apod:
+        return {"error": "APOD API failed"}
 
-        return render_template(
-            "index.html",
-            title=data.get("title"),
-            image=data.get("url"),
-            explanation=data.get("explanation")
-        )
+    iss_pos = iss.get("iss_position", {})
+    asteroid_count = len(list(asteroid.get("near_earth_objects", {}).values())[0])
 
-    except Exception as e:
-        return f"<pre>Error: {e}</pre>"
-
+    return render_template(
+        "index.html",
+        title=apod.get("title"),
+        image=apod.get("url"),
+        explanation=apod.get("explanation"),
+        lat=iss_pos.get("latitude"),
+        lon=iss_pos.get("longitude"),
+        asteroids=asteroid_count
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
