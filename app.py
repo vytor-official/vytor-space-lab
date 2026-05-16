@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import requests
 
-app = Flask(__name__
+app = Flask(__name__)
 
 NASA_API = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
 
