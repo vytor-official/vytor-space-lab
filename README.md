@@ -1,27 +1,46 @@
 # 🛰️ Vytor Space Lab
 
-Vytor Space Lab is an early-stage space intelligence software project focused on collecting, analyzing, and presenting real-time space data using public APIs.
+Vytor Space Lab is an early-stage space intelligence system that collects and analyzes real-time space data using multiple public APIs.
 
 ---
 
-## 🚀 Current Version
-**v3 - Interactive Space Dashboard**
+## 🚀 Current Version: v4
 
-Features:
-- NASA Astronomy Picture of the Day (APOD) integration
-- Interactive terminal-based menu system
-- Real-time space data fetching via public APIs
+### Features:
+- NASA Astronomy Picture of the Day (APOD)
+- ISS live location tracking
+- Asteroid data monitoring
+- Interactive terminal dashboard (menu system)
 
 ---
 
 ## 🌌 Vision
 
-Vytor aims to evolve into a space intelligence platform that:
+Vytor aims to become a space intelligence platform that aggregates and analyzes space data from multiple sources and presents it in an accessible way.
 
-- Collects and analyzes space-related data
-- Provides accessible insights from astronomical datasets
-- Builds tools for space exploration and visualization
-- Integrates AI-based analysis in future versions
+---
+
+## 🧠 Tech Stack
+
+- Python
+- NASA Open APIs
+- Open space data APIs
+- GitHub version control
+
+---
+
+## 📊 Status
+
+Early-stage working prototype 🚀  
+Multi-source space data system implemented.
+
+---
+
+## 🛰️ Next Step Ideas
+
+- Web-based dashboard
+- Graphical visualization
+- AI-based space analysis- Integrates AI-based analysis in future versions
 
 ---
 
