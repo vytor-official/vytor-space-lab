@@ -1,18 +1,30 @@
 import requests
 
-print("🛰️ Vytor Space Lab v2 Initializing...\n")
+def get_apod():
+    url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+    data = requests.get(url).json()
 
-url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+    print("\n🛰️ NASA Astronomy Picture of the Day")
+    print("-" * 40)
+    print("Title:", data["title"])
+    print("URL:", data["url"])
+    print("Description:", data["explanation"])
 
-try:
-    response = requests.get(url)
-    data = response.json()
 
-    print("📡 TODAY'S SPACE DATA")
-    print("-" * 30)
-    print("📌 Title:", data["title"])
-    print("\n🧠 Description:", data["explanation"])
-    print("\n🖼️ Image URL:", data["url"])
+def menu():
+    print("\n===== VYTOR SPACE LAB v3 =====")
+    print("1 - NASA APOD")
+    print("0 - Exit")
 
-except Exception as error:
-    print("❌ An error occurred:", error)
+    choice = input("Select option: ")
+
+    if choice == "1":
+        get_apod()
+    elif choice == "0":
+        print("Exiting Vytor...")
+    else:
+        print("Invalid choice")
+
+
+while True:
+    menu()
