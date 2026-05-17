@@ -1,49 +1,32 @@
-# 🛰️ Vytor Space Lab
+# Vytor Space Intelligence
 
-Vytor Space Lab is an early-stage space intelligence web system built with Python and Flask.
+Vytor is a modular space intelligence platform focused on collecting, processing, and presenting real-time space data.
 
----
+## Current Version
+V7 Architecture Foundation
 
-## 🚀 Current Version: v5
+## What It Does
+- Displays NASA APOD data
+- Shows current ISS position
+- Monitors near-Earth asteroids
+- Uses a modular backend architecture
 
-### Features
-- NASA APOD web dashboard
-- Flask-based web server
-- Real-time space data integration
-- Error-safe API handling
-- GitHub version control
+## Architecture
+- `app.py` for the Flask entrypoint
+- `core/` for orchestration and analysis
+- `services/` for data fetching
+- `templates/` for the dashboard UI
+- `static/` for CSS and JavaScript
+- `config/` for central settings
+- `data/` for local storage and future datasets
 
----
-
-## 🌌 Vision
-
-Vytor is evolving into a space intelligence platform that will:
-- Analyze space data
-- Visualize astronomical events
-- Provide real-time satellite tracking
-- Expand into AI-assisted space research
-
----
-
-## 🧠 Tech Stack
+## Stack
 - Python
 - Flask
-- NASA Open API
-- HTML Templates
-- GitHub
+- Requests
+- HTML
+- CSS
+- JavaScript
 
----
-
-## 📁 Structure
-
-vytor-space-lab/
-├── app.py
-├── main.py
-├── README.md
-└── templates/
-    └── index.html
-
----
-
-## 📊 Status
-Working web prototype 🚀
+## Status
+Active prototype moving toward a product-grade architecture.
