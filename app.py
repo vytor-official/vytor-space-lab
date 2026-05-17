@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template
 from core.engine import get_dashboard_data
 
@@ -10,4 +9,4 @@ def home():
     return render_template("index.html", **data)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run()
