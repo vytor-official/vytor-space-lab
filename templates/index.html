@@ -1,1 +1,44 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vytor Space Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>Vytor Space Intelligence</h1>
+            <p>Real-time space data dashboard</p>
+        </header>
+
+        <section class="card">
+            <h2>{{ title }}</h2>
+            {% if image %}
+            <img src="{{ image }}" alt="{{ title }}">
+            {% endif %}
+            <p>{{ explanation }}</p>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h3>ISS Live Position</h3>
+                <p>Latitude: {{ latitude }}</p>
+                <p>Longitude: {{ longitude }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Asteroid Monitoring</h3>
+                <p>Date: {{ asteroid_date }}</p>
+                <p>Detected Objects Today: {{ asteroid_count }}</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>© <span id="year"></span> Vytor</span>
+        </footer>
+    </div>
+</body>
+</html> 
