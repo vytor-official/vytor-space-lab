@@ -1,44 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vytor Space Intelligence</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
-</head>
-<body>
-    <div class="container">
-        <header class="hero">
-            <h1>Vytor Space Intelligence</h1>
-            <p>Real-time space data dashboard</p>
-        </header>
+{% extends "base.html" %}
 
-        <section class="card">
-            <h2>{{ title }}</h2>
-            {% if image %}
-            <img src="{{ image }}" alt="{{ title }}">
-            {% endif %}
-            <p>{{ explanation }}</p>
-        </section>
+{% block title %}Vytor Space Intelligence{% endblock %}
 
-        <section class="grid">
-            <div class="card">
-                <h3>ISS Live Position</h3>
-                <p>Latitude: {{ latitude }}</p>
-                <p>Longitude: {{ longitude }}</p>
-            </div>
-
-            <div class="card">
-                <h3>Asteroid Monitoring</h3>
-                <p>Date: {{ asteroid_date }}</p>
-                <p>Detected Objects Today: {{ asteroid_count }}</p>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <span>© <span id="year"></span> Vytor</span>
-        </footer>
+{% block content %}
+<header class="hero reveal">
+    <div class="brand-row">
+        <span class="brand-pill live">Live System</span>
+        <span class="brand-pill">V8</span>
     </div>
-</body>
-</html> 
+    <h1>Vytor Space Intelligence</h1>
+    <p>Real-time observation, cinematic telemetry, and orbital monitoring in one dashboard.</p>
+    <div class="hero-actions">
+        <a class="primary-button" href="#dashboard">Open Dashboard</a>
+        <span class="status-chip">System Online</span>
+    </div>
+</header>
+
+<section id="dashboard" class="metric-grid reveal">
+    <article class="metric-card tilt-card">
+        <span class="metric-label">Asteroids Today</span>
+        <span class="metric-value" data-count="{{ asteroid_count }}">{{ asteroid_count }}</span>
+        <span class="metric-subtitle">{{ asteroid_date }}</span>
+    </article>
+
+    <article class="metric-card tilt-card">
+        <span class="metric-label">Hazardous Objects</span>
+        <span class="metric-value" data-count="{{ hazardous_count }}">{{ hazardous_count }}</span>
+        <span class="metric-subtitle">Potentially hazardous NEOs</span>
+    </article>
+
+    <article class="metric-card tilt-card">
+        <span class="metric-label">ISS Latitude</span>
+        <span class="metric-value">{{ latitude }}</span>
+        <span class="metric-subtitle">Live position feed</span>
+    </article>
+
+    <article class="metric-card tilt-card">
+        <span class="metric-label">ISS Longitude</span>
+        <span class="metric-value">{{ longitude }}</span>
+        <span class="metric-subtitle">Live position feed</span>
+    </article>
+</section>
+
+<section class="content-grid reveal">
+    <article class="panel panel-large tilt-card">
+        <div class="panel-header">
+            <span class="panel-kicker">NASA APOD</span>
+            <h2>{{ title }}</h2>
+        </div>
+
+        {% if image %}
+        <img class="apod-image" src="{{ image }}" alt="{{ title }}">
+        {% endif %}
+
+        <p class="copy">{{ explanation }}</p>
+    </article>
+
+    <article class="panel tilt-card">
+        <div class="panel-header">
+            <span class="panel-kicker live">ISS Live Stream</span>
+            <h2>Orbital Camera Feed</h2>
+        </div>
+
+        <div class="video-frame">
+            <iframe
+                src="{{ live_stream_url }}"
+                title="ISS Live Stream"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </article>
+</section>
+
+<section class="details-grid reveal">
+    <article class="panel tilt-card">
+        <h3>Live Position</h3>
+        <div class="detail-row">
+            <span>Latitude</span>
+            <strong>{{ latitude }}</strong>
+        </div>
+        <div class="detail-row">
+            <span>Longitude</span>
+            <strong>{{ longitude }}</strong>
+        </div>
+    </article>
+
+    <article class="panel tilt-card">
+        <h3>Observation Summary</h3>
+        <div class="detail-row">
+            <span>Asteroid Date</span>
+            <strong>{{ asteroid_date }}</strong>
+        </div>
+        <div class="detail-row">
+            <span>Total Objects</span>
+            <strong data-count="{{ asteroid_count }}">{{ asteroid_count }}</strong>
+        </div>
+        <div class="detail-row">
+            <span>Hazardous</span>
+            <strong data-count="{{ hazardous_count }}">{{ hazardous_count }}</strong>
+        </div>
+    </article>
+</section>
+
+<footer class="footer reveal">
+    <span>© <span id="year"></span> Vytor</span>
+</footer>
+{% endblock %}
