@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const year = document.getElementById("year");
 
     if (year) {
@@ -9,9 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const starfield = document.getElementById("starfield");
 
     if (starfield) {
-
         for (let index = 0; index < 120; index += 1) {
-
             const star = document.createElement("span");
             const size = 1 + Math.random() * 2.5;
 
@@ -28,14 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const revealObserver = new IntersectionObserver((entries) => {
-
         entries.forEach((entry) => {
-
             if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
             }
         });
-
     }, {
         threshold: 0.16
     });
@@ -45,13 +39,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelectorAll("[data-count]").forEach((node) => {
-
         const targetValue = Number(node.getAttribute("data-count"));
+
+        if (Number.isNaN(targetValue)) {
+            return;
+        }
+
         const duration = 1000;
         const startTime = performance.now();
 
         const animate = (now) => {
-
             const progress = Math.min((now - startTime) / duration, 1);
             const currentValue = Math.round(targetValue * progress);
 
@@ -66,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     async function updateISSPosition() {
-
         try {
-
             const response = await fetch("/api/iss");
             const data = await response.json();
 
@@ -76,33 +71,49 @@ document.addEventListener("DOMContentLoaded", () => {
             const longitude = data.longitude || "Unknown";
             const timestamp = data.timestamp || "Unavailable";
 
-            document.getElementById("iss-latitude").textContent = latitude;
-            document.getElementById("iss-longitude").textContent = longitude;
-            document.getElementById("telemetry-latitude").textContent = latitude;
-            document.getElementById("telemetry-longitude").textContent = longitude;
-            document.getElementById("telemetry-timestamp").textContent = timestamp;
+            const latitudeNodes = [
+                document.getElementById("iss-latitude"),
+                document.getElementById("telemetry-latitude")
+            ];
 
+            const longitudeNodes = [
+                document.getElementById("iss-longitude"),
+                document.getElementById("telemetry-longitude")
+            ];
+
+            const timestampNode = document.getElementById("telemetry-timestamp");
+
+            latitudeNodes.forEach((node) => {
+                if (node) {
+                    node.textContent = latitude;
+                }
+            });
+
+            longitudeNodes.forEach((node) => {
+                if (node) {
+                    node.textContent = longitude;
+                }
+            });
+
+            if (timestampNode) {
+                timestampNode.textContent = timestamp;
+            }
         } catch (error) {
             console.error(error);
         }
     }
 
     updateISSPosition();
-
     setInterval(updateISSPosition, 5000);
 
     const supportsHover = window.matchMedia("(hover: hover)").matches;
 
     if (supportsHover) {
-
         document.querySelectorAll(".tilt-card").forEach((card) => {
-
             card.addEventListener("mousemove", (event) => {
-
                 const rect = card.getBoundingClientRect();
                 const offsetX = (event.clientX - rect.left) / rect.width;
                 const offsetY = (event.clientY - rect.top) / rect.height;
-
                 const rotateY = (offsetX - 0.5) * 10;
                 const rotateX = (0.5 - offsetY) * 10;
 
