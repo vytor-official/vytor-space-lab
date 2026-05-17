@@ -6,6 +6,16 @@ def get_iss_position():
         response = requests.get(ISS_POSITION_URL, timeout=REQUEST_TIMEOUT)
         response.raise_for_status()
         data = response.json()
-        return data.get("iss_position", {})
+        position = data.get("iss_position", {})
+
+        return {
+            "latitude": position.get("latitude", "Unknown"),
+            "longitude": position.get("longitude", "Unknown"),
+            "timestamp": data.get("timestamp", 0)
+        }
     except Exception:
-        return {} 
+        return {
+            "latitude": "Unknown",
+            "longitude": "Unknown",
+            "timestamp": 0
+        }
