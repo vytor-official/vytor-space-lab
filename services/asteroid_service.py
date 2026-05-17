@@ -2,11 +2,17 @@ import requests
 from config.settings import NASA_ASTEROID_URL, REQUEST_TIMEOUT
 
 def get_asteroids():
+    if not NASA_ASTEROID_URL:
+        return {
+            "date": "Unknown",
+            "count": 0,
+            "hazardous_count": 0
+        }
+
     try:
         response = requests.get(NASA_ASTEROID_URL, timeout=REQUEST_TIMEOUT)
         response.raise_for_status()
         data = response.json()
-
         near_objects = data.get("near_earth_objects", {})
 
         if not near_objects:
@@ -28,6 +34,7 @@ def get_asteroids():
             "count": len(objects),
             "hazardous_count": hazardous_count
         }
+
     except Exception:
         return {
             "date": "Unknown",
