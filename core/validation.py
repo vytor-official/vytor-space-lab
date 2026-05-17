@@ -4,9 +4,12 @@ def safe_text(value, default="Unavailable"):
     return default
 
 def safe_number(value, default=0):
-    if isinstance(value, (int, float)):
-        return value
-    return default
+    try:
+        if isinstance(value, bool):
+            return default
+        return int(float(value))
+    except (TypeError, ValueError):
+        return default
 
 def safe_dict(value):
     if isinstance(value, dict):
