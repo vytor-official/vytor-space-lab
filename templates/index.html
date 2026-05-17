@@ -1,1 +1,127 @@
- 
+{% extends "base.html" %}
+
+{% block title %}Vytor Space Intelligence{% endblock %}
+
+{% block content %}
+<header class="hero reveal">
+    <div class="brand-row">
+        <span class="brand-pill live">Telemetry Online</span>
+        <span class="brand-pill">V10</span>
+    </div>
+
+    <h1>{{ app_name }}</h1>
+
+    <p>
+        Real-time orbital telemetry, asteroid monitoring, and cinematic space intelligence systems.
+    </p>
+
+    <div class="hero-actions">
+        <a class="primary-button" href="#dashboard">Open Dashboard</a>
+        <span class="status-chip">System Online</span>
+    </div>
+</header>
+
+<section id="dashboard" class="metric-grid reveal">
+    <article class="metric-card tilt-card live-panel">
+        <span class="metric-label">ISS Latitude</span>
+        <span class="metric-value" id="iss-latitude">{{ latitude }}</span>
+        <span class="metric-subtitle">Live orbital telemetry</span>
+    </article>
+
+    <article class="metric-card tilt-card live-panel">
+        <span class="metric-label">ISS Longitude</span>
+        <span class="metric-value" id="iss-longitude">{{ longitude }}</span>
+        <span class="metric-subtitle">Live orbital telemetry</span>
+    </article>
+
+    <article class="metric-card tilt-card">
+        <span class="metric-label">Asteroids Today</span>
+        <span class="metric-value" data-count="{{ asteroid_count }}">{{ asteroid_count }}</span>
+        <span class="metric-subtitle">{{ asteroid_date }}</span>
+    </article>
+
+    <article class="metric-card tilt-card danger-panel">
+        <span class="metric-label">Hazardous Objects</span>
+        <span class="metric-value" data-count="{{ hazardous_count }}">{{ hazardous_count }}</span>
+        <span class="metric-subtitle">Potentially hazardous NEOs</span>
+    </article>
+</section>
+
+<section class="content-grid reveal">
+    <article class="panel panel-large tilt-card">
+        <div class="panel-header">
+            <span class="panel-kicker">NASA APOD</span>
+            <h2>{{ title }}</h2>
+        </div>
+
+        {% if image %}
+        <img class="apod-image" src="{{ image }}" alt="{{ title }}">
+        {% endif %}
+
+        <p class="copy">{{ explanation }}</p>
+    </article>
+
+    <article class="panel telemetry-panel tilt-card">
+        <div class="panel-header">
+            <span class="panel-kicker live">Live Telemetry</span>
+            <h2>ISS Tracking System</h2>
+        </div>
+
+        <div class="telemetry-grid">
+            <div class="telemetry-item">
+                <span>Status</span>
+                <strong class="online">ONLINE</strong>
+            </div>
+
+            <div class="telemetry-item">
+                <span>Latitude</span>
+                <strong id="telemetry-latitude">{{ latitude }}</strong>
+            </div>
+
+            <div class="telemetry-item">
+                <span>Longitude</span>
+                <strong id="telemetry-longitude">{{ longitude }}</strong>
+            </div>
+
+            <div class="telemetry-item">
+                <span>Last Update</span>
+                <strong id="telemetry-timestamp">{{ iss_timestamp }}</strong>
+            </div>
+        </div>
+    </article>
+</section>
+
+<section class="details-grid reveal">
+    <article class="panel tilt-card">
+        <h3>Telemetry Summary</h3>
+        <div class="detail-row">
+            <span>ISS Position</span>
+            <strong>{{ latitude }}, {{ longitude }}</strong>
+        </div>
+        <div class="detail-row">
+            <span>Telemetry Status</span>
+            <strong class="online">ONLINE</strong>
+        </div>
+    </article>
+
+    <article class="panel tilt-card">
+        <h3>Observation Summary</h3>
+        <div class="detail-row">
+            <span>Asteroid Date</span>
+            <strong>{{ asteroid_date }}</strong>
+        </div>
+        <div class="detail-row">
+            <span>Total Objects</span>
+            <strong data-count="{{ asteroid_count }}">{{ asteroid_count }}</strong>
+        </div>
+        <div class="detail-row">
+            <span>Hazardous</span>
+            <strong data-count="{{ hazardous_count }}">{{ hazardous_count }}</strong>
+        </div>
+    </article>
+</section>
+
+<footer class="footer reveal">
+    <span>© <span id="year"></span> Vytor Space Intelligence</span>
+</footer>
+{% endblock %} 
