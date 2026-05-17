@@ -1,24 +1,18 @@
 # Vytor Space Intelligence
 
-Vytor is a modular space intelligence platform focused on collecting, processing, and presenting real-time space data.
+Vytor is a modular space intelligence dashboard focused on live observation, cinematic visualization, and clean backend architecture.
 
 ## Current Version
-V7 Architecture Foundation
+V8 Cinematic Dashboard
 
-## What It Does
-- Displays NASA APOD data
-- Shows current ISS position
-- Monitors near-Earth asteroids
-- Uses a modular backend architecture
-
-## Architecture
-- `app.py` for the Flask entrypoint
-- `core/` for orchestration and analysis
-- `services/` for data fetching
-- `templates/` for the dashboard UI
-- `static/` for CSS and JavaScript
-- `config/` for central settings
-- `data/` for local storage and future datasets
+## Features
+- NASA APOD visualization
+- ISS live stream embed
+- ISS live position tracking
+- Asteroid monitoring
+- Animated glass UI
+- Responsive dashboard layout
+- Modular backend architecture
 
 ## Stack
 - Python
@@ -28,5 +22,17 @@ V7 Architecture Foundation
 - CSS
 - JavaScript
 
-## Status
-Active prototype moving toward a product-grade architecture.
+## Structure
+- `app.py` for the Flask entrypoint
+- `config/` for centralized settings
+- `core/` for orchestration and validation
+- `services/` for data retrieval
+- `templates/` for the UI
+- `static/` for styles and motion logic
+
+## Run
+Install dependencies and set `NASA_API_KEY` in your environment before launching the app.
+
+```bash
+pip install -r requirements.txt
+python app.py
