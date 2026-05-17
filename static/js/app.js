@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const year = document.getElementById("year");
 
     if (year) {
@@ -8,31 +9,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const starfield = document.getElementById("starfield");
 
     if (starfield) {
-        const totalStars = 120;
 
-        for (let index = 0; index < totalStars; index += 1) {
+        for (let index = 0; index < 120; index += 1) {
+
             const star = document.createElement("span");
-            const size = 1 + Math.random() * 2.8;
+            const size = 1 + Math.random() * 2.5;
 
             star.className = "star";
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
             star.style.left = `${Math.random() * 100}%`;
             star.style.top = `${Math.random() * 100}%`;
-            star.style.opacity = `${0.3 + Math.random() * 0.7}`;
             star.style.animationDuration = `${5 + Math.random() * 10}s`;
-            star.style.animationDelay = `${Math.random() * 8}s`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
 
             starfield.appendChild(star);
         }
     }
 
     const revealObserver = new IntersectionObserver((entries) => {
+
         entries.forEach((entry) => {
+
             if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
             }
         });
+
     }, {
         threshold: 0.16
     });
@@ -41,43 +44,65 @@ document.addEventListener("DOMContentLoaded", () => {
         revealObserver.observe(element);
     });
 
-    const counterEase = (value) => 1 - Math.pow(1 - value, 3);
-
     document.querySelectorAll("[data-count]").forEach((node) => {
+
         const targetValue = Number(node.getAttribute("data-count"));
-
-        if (Number.isNaN(targetValue)) {
-            return;
-        }
-
-        const duration = 1100;
+        const duration = 1000;
         const startTime = performance.now();
 
         const animate = (now) => {
+
             const progress = Math.min((now - startTime) / duration, 1);
-            const eased = counterEase(progress);
-            const currentValue = Math.round(targetValue * eased);
+            const currentValue = Math.round(targetValue * progress);
 
             node.textContent = currentValue.toLocaleString();
 
             if (progress < 1) {
                 requestAnimationFrame(animate);
-            } else {
-                node.textContent = targetValue.toLocaleString();
             }
         };
 
         requestAnimationFrame(animate);
     });
 
+    async function updateISSPosition() {
+
+        try {
+
+            const response = await fetch("/api/iss");
+            const data = await response.json();
+
+            const latitude = data.latitude || "Unknown";
+            const longitude = data.longitude || "Unknown";
+            const timestamp = data.timestamp || "Unavailable";
+
+            document.getElementById("iss-latitude").textContent = latitude;
+            document.getElementById("iss-longitude").textContent = longitude;
+            document.getElementById("telemetry-latitude").textContent = latitude;
+            document.getElementById("telemetry-longitude").textContent = longitude;
+            document.getElementById("telemetry-timestamp").textContent = timestamp;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    updateISSPosition();
+
+    setInterval(updateISSPosition, 5000);
+
     const supportsHover = window.matchMedia("(hover: hover)").matches;
 
     if (supportsHover) {
+
         document.querySelectorAll(".tilt-card").forEach((card) => {
+
             card.addEventListener("mousemove", (event) => {
+
                 const rect = card.getBoundingClientRect();
                 const offsetX = (event.clientX - rect.left) / rect.width;
                 const offsetY = (event.clientY - rect.top) / rect.height;
+
                 const rotateY = (offsetX - 0.5) * 10;
                 const rotateX = (0.5 - offsetY) * 10;
 
